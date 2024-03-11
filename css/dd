@@ -1,0 +1,224 @@
+@media (max-width: 1440px) {
+  .container {
+    justify-content: center;
+  }
+  .weekly-task {
+    padding: 60px 30px 20px 60px;
+  }
+
+  .widgets__item, 
+  .weekly-task__add-widget {
+    max-width: 300px;
+  }
+
+  .weekly-task__button-text {
+    font-size: 18px;
+  }
+
+  .calendar__top {
+    display: block;
+  }
+
+  .current-task__navigation {
+    justify-content: flex-start;
+  }
+
+  .current-task__info {
+    margin-right: 20px;
+  }
+
+  .calendar__buttons {
+    position: relative;
+    bottom: -10px;
+  }
+
+  .calendar__content {
+    max-width: 300px;
+  }
+
+  .current-task {
+    padding: 60px 15px 30px 30px;
+  }
+
+  .current-task__buttons {
+    position: relative;
+    left: 0;
+    bottom: -10px;
+  }
+
+  .general-info {
+    padding: 60px 60px 60px 15px;
+  }
+
+  .general-info__news-block {
+    position: relative;
+  }
+
+  .general-info__personal-details {
+    align-items: center;
+  }
+
+  .general-info__text-wrapper {
+    margin-right: 10px;
+  }
+
+  /* .general-info__profile-image-container {
+    order: -1;
+    margin-bottom: 10px;
+  } */
+
+  /* .general-info {
+    position: fixed;
+    right: 100px;
+  } */
+}
+
+  @media (max-width: 1200px) {
+    .weekly-task {
+      padding: 30px 15px 20px 15px;
+    }
+
+    /* .widgets__item {
+      display: block;
+      max-width: 200px;
+    } */
+
+    /* .widgets__img-container {
+      margin-right: 0;
+      margin-bottom: 10px;
+    } */
+
+    .widgets__task-subtitle {
+      font-size: 16px;
+    }
+
+    .widgets__task-label {
+      margin-bottom: 10px;
+    }
+
+    .widgets__task-text {
+      font-size: 12px;
+    }
+
+    .current-task__title,
+    .current-task__date {
+      font-size: 32px;
+    }
+
+    .general-info__personal-details {
+      justify-content: flex-end;
+    }
+
+    .general-info {
+      padding: 30px 15px 20px 15px;
+    }
+  }
+  
+  @media (max-width: 992px) {
+    /* .weekly-task__add-widget {
+      max-width: 200px;
+    } */
+
+    .weekly-task__add-task-btn {
+      margin-right: 10px;
+    }
+
+    .weekly-task__button-text {
+      font-size: 14px;
+    }
+
+    .calendar__content {
+      padding: 30px 10px;
+    }
+
+    .current-task {
+      padding: 120px 15px 20px 15px;
+    }
+
+    /* .current-task__navigation {
+      flex-direction: column;
+    }
+
+    .current-task__add-task-btn {
+      order: -1;
+    } */
+
+    .general-info {
+      flex-shrink: 1;
+      padding: 20px 10px;
+      position: absolute;
+      top: -1000px;
+      right: 0;
+      border-radius: 12px;
+      background-color: rgba(244, 185, 96, 0.4);
+      transition: all 0.5s;
+      /* height: 0; */
+    }
+
+    .general-info__personal-details {
+      position: fixed;
+      top: 20px;
+      right: 15px;
+      margin-bottom: 0;
+    }
+
+
+    .general-info.active {
+      right: 0;
+      top: 100px;
+    }
+    
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .current-task {
+      order: -1;
+    }
+
+    .weekly-task__logo {
+      display: none;
+    }
+
+    .weekly-task {
+      display: flex;
+    }
+
+    .weekly-task__calendar {
+      margin-left: 30px;
+    }
+
+    /* .general-info__personal-details {
+      right: 55px;
+    } */
+
+    .authorization {
+      min-height: 0;
+      justify-content: flex-start;
+    }
+
+    .authorization__title {
+      font-size: 32px;
+    }
+
+    .authorization__quote {
+      font-size: 24px;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .authorization__wrapper {
+      margin-top: 20px;
+    }
+    .authorization__title {
+      font-size: 24px;
+    }
+
+    .authorization__quote {
+      font-size: 18px;
+    }
+  }

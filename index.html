@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Planner</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <main class="main">
+    <div class="container">
+
+      <h1 class="sr-only">
+        Weekly Planner
+      </h1>
+
+      <section class="authorization">
+        <div class="authorization__logo">
+          <a class="logo" href="index.html">
+            <button class="logo__btn">
+              <span class="logo__span">
+              </span>
+            </button>
+            taskly
+          </a>
+        </div>
+
+        <div class="authorization__content">
+          <div class="authorization__wrapper">
+            <h2 class="authorization__title">
+              Taskly Planner
+            </h2>
+            <p class="authorization__quote">
+              Today is a brand new day. And it's yours.
+            </p>
+          </div>
+
+
+          <form class="form form__sign-up" action="#">
+
+            <div class="form__block form__email-block">
+              <label class="form__label" for="email">Email</label>
+              <input class="form__input form__email" id="email" name="email" type="email" placeholder="" required>
+            </div>
+
+            <div class="form__block">
+              <div class="form__top">
+                <label class="form__label" for="password">Password</label>
+                <button class="form__hide-button" type="button">
+                  <img class="form__hide-png" src="images/hide.png" alt="hide password">
+                  <img class="form__show-png" src="images/show.png" style="display: none" alt="show password">
+                  <p class="form__btn-txt">
+                    Hide
+                  </p>
+                </button>
+              </div>
+
+              <input class="form__input form__password" id="password" name="password" placeholder="" type="password"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[\W_]).{8,}$" required>
+
+              <ul class="form__list">
+                <li class="form__item">
+                  Use 8 or more characters
+                </li>
+                <li class="form__item">
+                  Use upper and lower case letters (e.g. Aa)
+                </li>
+                <li class="form__item">
+                  Use a number (e.g. 1234)
+                </li>
+                <li class="form__item">
+                  Use a symbol (e.g. !@#$)
+                </li>
+              </ul>
+            </div>
+
+            <button class="form__button" type="submit">
+              <p class="form__button-text">
+                Sign Up
+              </p>
+              <div class="dot-elastic">
+              </div>
+            </button>
+
+          </form>
+
+
+
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+  <script type="module" src="js/authorization.js"></script>
+</body>
+
+</html>

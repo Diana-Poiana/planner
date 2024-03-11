@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Planner</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <main class="main">
+    <div class="container">
+
+      <h1 class="sr-only">
+        Weekly Planner
+      </h1>
+
+      <header class="header">
+        <div class="header__container">
+          <div class="header__text-wrapper">
+            <p class="header__profile-name">
+            </p>
+            <p class="header__profile-settings">
+              My settings
+            </p>
+          </div>
+          <div class="header__profile-image-container">
+            <img class="header__profile-image" src="images/emoji/15.png" alt="profile picture">
+          </div>
+        </div>
+      </header>
+
+      <!-- weekly planner -->
+      <section class="weekly-task">
+
+        <div class="weekly-task__content">
+
+          <a class="weekly-task__logo" href="">
+            <button class="weekly-task__logo-btn">
+              <span class="weekly-task__logo-span">
+              </span>
+            </button>
+            taskly
+          </a>
+
+          <div class="weekly-task__btn-wrapper">
+            <h2 class="weekly-task__content-subtitle">
+              Weekly Pinned
+            </h2>
+
+            <button class="weekly-task__add-task-mob">
+              <span class="weekly-task__span-mob">
+              </span>
+            </button>
+          </div>
+
+          <div class="weekly-task__loader loader" id="1">
+          </div>
+
+          <ul class="weekly-task__list widgets">
+          </ul>
+
+          <div class="weekly-task__add-widget">
+            <div class="weekly-task__add-widget-content">
+              <button class="weekly-task__add-task-btn" id="newWeeklyPin">
+                <span class="weekly-task__span">
+                </span>
+              </button>
+
+              <p class="weekly-task__button-text">
+                Add new weekly pin
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="weekly-task__calendar calendar">
+          <div class="calendar__inner">
+            <div class="calendar__top">
+              <p class="calendar__current-month">
+              </p>
+
+              <div class="calendar__buttons">
+                <button class="calendar__prev-btn">
+                  <img class="calendar__btn-img" src="images/arrow-right.png" alt="arrow right">
+                </button>
+                <button class="calendar__next-btn">
+                  <img class="calendar__btn-img" src="images/arrow-right.png" alt="arrow right">
+                </button>
+              </div>
+            </div>
+
+            <div class="calendar__content">
+              <ul class="calendar__weeks">
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+
+              </ul>
+
+              <ul class="calendar__days">
+
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
+      </section>
+
+      <section class="current-task">
+        <div class="current-task__content">
+
+          <div class="current-task__navigation">
+            <div class="current-task__info">
+              <h2 class="current-task__title">
+              </h2>
+              <span class="current-task__date">
+                Thursday 11
+              </span>
+
+
+              <div class="current-task__buttons">
+                <button class="current-task__prev-btn">
+                  <img class="current-task__btn-img" src="images/arrow-right.png" alt="arrow right">
+                </button>
+                <button class="current-task__next-btn">
+                  <img class="current-task__btn-img" src="images/arrow-right.png" alt="arrow right">
+                </button>
+              </div>
+
+            </div>
+
+            <button class="current-task__add-task-btn" type="button">
+              <span class="current-task__add-task-span">
+              </span>
+            </button>
+          </div>
+
+          <div class="current-task__loader loader" id="2">
+          </div>
+
+          <ul class="current-task__list">
+          </ul>
+
+
+        </div>
+      </section>
+
+      <section class="general-info">
+
+        <div class="general-info__content">
+          <div class="general-info__personal-details">
+            <div class="general-info__text-wrapper">
+              <p class="general-info__profile-name">
+              </p>
+              <p class="general-info__profile-settings">
+                My settings
+              </p>
+            </div>
+            <div class="general-info__profile-image-container">
+              <img class="general-info__profile-image" src="images/emoji/15.png" alt="profile picture">
+            </div>
+          </div>
+
+
+          <div class="general-info__weather-widget">
+            <div class="general-info__weather-widget-content">
+              <p class="general-info__local-time">
+              </p>
+              <div class="general-info__weather-info" style="display: none">
+                <img class="general-info__weather-icon" alt="weather icon">
+                </img>
+                <p class="general-info__weather-description">
+                </p>
+              </div>
+
+              <div class="weather__loader loader" id="3">
+              </div>
+
+              <button class="widget-close-btn">
+                <span class="widget-close-span">
+                </span>
+              </button>
+            </div>
+
+          </div>
+
+          <div class="general-info__news-block">
+            <div class="general-info__news-block-content">
+              <button class="general-info__close-btn">
+                <span class="general-info__close-span">
+                </span>
+              </button>
+
+              <h2 class="general-info__news-title">
+                Unsleash the freelance super power
+              </h2>
+              <p class="general-info__news-text">
+                Unlimited task, premium features and much more.
+              </p>
+
+              <div class="general-info__news-image-wrapper">
+                <img class="general-info__news-img" src="images/lady.png" alt="smiling lady">
+                <button class="general-info__news-btn">
+                  <img class="general-info__news-btn-img" src="images/arrow-right.png" alt="right arrow">
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+
+
+      <section class="modal-window" style="display: none">
+        <div class="modal-window__wrapper">
+
+          <form class="modal-window__form" id="form">
+            <button class="modal-window__widget-close-btn" id="newTodayPin">
+              <span class="modal-window__widget-close-span">
+              </span>
+            </button>
+
+            <h2 class="modal-window__subtitle">
+            </h2>
+
+            <label class="modal-window__name-label" for="taskName"></label>
+            <input type="text" class="modal-window__input modal-window__name" name="taskName"
+              placeholder="Name of the task*">
+
+            <label class="modal-window__deadline-label" for="deadlineDate"></label>
+            <input type="date" class="modal-window__input modal-window__deadline-date" name="deadlineDate"
+              placeholder="Deadline date">
+
+            <label class="modal-window__deadline-label" for="deadlineTime"></label>
+            <input type="text" class="modal-window__input modal-window__deadline-time" name="deadlineTime"
+              placeholder="Deadline time">
+
+            <label class="modal-window__task-label" for="taskLabel"></label>
+            <input type="text" class="modal-window__input modal-window__label" name="taskLabel"
+              placeholder="Label (Personal, Buisness, etc)">
+
+            <label class="modal-window__note-label" for="taskNote"></label>
+            <textarea class="modal-window__input modal-window__note" name="taskNote" id="" cols="30" rows="10"
+              placeholder="Notes"></textarea>
+
+            <div class="modal-window__emoji-choice">
+              <button class="modal-window__emoji-btn-prev" type="button">
+              </button>
+              <div class="modal-window__emojis-wrapper">
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/1.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/2.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/3.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/4.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/5.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/6.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/7.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/8.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/9.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/10.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/11.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/12.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/13.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/14.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/15.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/16.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/17.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/18.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/19.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/20.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/21.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/22.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/23.png" alt="emoji">
+                </div>
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/24.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/25.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/26.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/27.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/28.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/29.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/30.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/31.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/32.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/33.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/34.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/35.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/36.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/37.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/38.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/39.png" alt="emoji">
+                </div>
+
+                <div class="modal-window__emoji-container">
+                  <img class="modal-window__emoji" src="images/emoji/40.png" alt="emoji">
+                </div>
+              </div>
+
+              <button class="modal-window__emoji-btn-next" type="button">
+              </button>
+
+            </div>
+
+            <button class="modal-window__btn" form="form" type="button">
+              Add New Pin
+            </button>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+  <!-- <script type="module" src="js/athorization.js"></script> -->
+  <script type="module" src="js/main.js"></script>
+  <script>
+    function checkCred() {
+      if (!sessionStorage.getItem('user-creds')) {
+        window.location.href = 'index.html';
+      }
+    }
+
+    window.addEventListener('load', checkCred);
+  </script>
+</body>
+
+</html>
