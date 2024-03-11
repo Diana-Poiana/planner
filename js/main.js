@@ -1,17 +1,4 @@
-import { app, db, auth, set, get, ref, dbref, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification, child } from './firebaseConfig.js';
-
-const celebrate = () => {
-  function randomInRange(min, max) {
-    return Math.random() * (max - min) + min;
-  }
-
-  confetti({
-    angle: randomInRange(55, 125),
-    spread: randomInRange(50, 70),
-    particleCount: randomInRange(50, 100),
-    origin: { y: 0.6 },
-  });
-}
+import { db, set, get, ref, dbref, child } from './firebaseConfig.js';
 
 // calendar
 const currentDate = document.querySelector('.calendar__current-month');
@@ -105,8 +92,18 @@ window.addEventListener('scroll', function () {
 });
 
 
+function celebrate() {
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
 
-
+  confetti({
+    angle: randomInRange(55, 125),
+    spread: randomInRange(50, 70),
+    particleCount: randomInRange(50, 100),
+    origin: { y: 0.6 },
+  });
+}
 
 
 function checkUserPreferencesAboutNewsBlock() {
@@ -141,16 +138,7 @@ try {
 
 
 
-todaysListItems.forEach((item) => {
-  item.addEventListener('click', (e) => {
-    if (e.target.classList.contains('checked')) {
-      item.classList.remove('checked');
-    } else {
-      item.classList.add('checked');
-      celebrate();
-    }
-  })
-});
+
 
 
 
@@ -273,6 +261,22 @@ function populateNewPin(data) {
       `;
 
       todaysTaskList.insertAdjacentHTML('beforeend', newPin);
+
+      // Select the newly created pin
+      const newPinElement = todaysTaskList.lastElementChild;
+
+      // Attach event listener to the new pin
+      newPinElement.addEventListener('click', (e) => {
+        if (e.target.classList.contains('checked')) {
+          e.target.classList.remove('checked');
+        } else {
+          e.target.classList.add('checked');
+          celebrate();
+        }
+      });
+
+
+
     })
 
   }
