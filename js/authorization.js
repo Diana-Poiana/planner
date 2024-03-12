@@ -1,6 +1,6 @@
-import { db, ref, dbref, set, get, auth, child, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from './firebaseConfig.js';
+import { db, ref, set, auth, createUserWithEmailAndPassword, sendEmailVerification } from './firebaseConfig.js';
 
-const loader = document.querySelector('.dot-elastic');
+const formLoader = document.querySelector('.form-loader');
 // form
 const form = document.querySelector('.form__sign-up');
 const emailInput = document.querySelector('.form__email');
@@ -17,8 +17,14 @@ const hidePng = document.querySelector('.form__hide-png');
 // buttons loader
 function showLoader() {
   formBtnText.textContent = '';
-  loader.style.display = 'flex';
+  formLoader.style.display = 'flex';
   formBtn.setAttribute('disabled', true);
+}
+
+function hideLoader() {
+  formBtnText.textContent = 'Try again later';
+  formLoader.style.display = 'none';
+  formBtn.setAttribute('disabled', false);
 }
 
 // toggle password visabillity
@@ -50,6 +56,7 @@ function registerUser(e) {
       sendEmailVerification(auth.currentUser)
         .catch((error) => {
           console.error(error.message);
+          hideLoader();
         });
 
       sessionStorage.setItem('user-creds', JSON.stringify(credentials.user));
@@ -57,6 +64,7 @@ function registerUser(e) {
     })
     .catch((error) => {
       console.error(error.message);
+      hideLoader();
     });
 }
 

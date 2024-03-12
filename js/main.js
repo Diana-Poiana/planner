@@ -33,18 +33,16 @@ const weatherIconEl = document.querySelector('.general-info__weather-icon');
 const weatherDescriptionEl = document.querySelector('.general-info__weather-description');
 const modalWindowSubmitBtn = document.querySelector('.modal-window__btn');
 const modalWindowSubtitle = document.querySelector('.modal-window__subtitle');
+const weatherBtn = document.querySelector('.widget-burger-btn');
+const weatherAdditionalInfo = document.querySelector('.general-info__additional-weather-info');
 
 // emoji scrolling
 const prevEmojiBtn = document.querySelector('.modal-window__emoji-btn-prev');
 const nextEmojiBtn = document.querySelector('.modal-window__emoji-btn-next');
 const emojisContainer = document.querySelector('.modal-window__emojis-wrapper');
-const moreEmojiBtn = document.querySelector('.modal-window__emoji-more');
-
 
 // add weekly pin
 const allInputs = document.querySelectorAll('.modal-window__input');
-
-const todaysListItems = document.querySelectorAll('.current-task__item');
 const allEmojis = document.querySelectorAll('.modal-window__emoji');
 const emojiWrapper = document.querySelector('.modal-window__emojis-wrapper');
 
@@ -53,20 +51,39 @@ const currentDateEl = document.querySelector('.current-task__date');
 const prevDate = document.querySelector('.current-task__prev-btn');
 const nextDate = document.querySelector('.current-task__next-btn');
 
-// const changeDateBtns = document.querySelector('.current-task__buttons');
 const currentListTitle = document.querySelector('.current-task__title');
-
 const newsBlock = document.querySelector('.general-info__news-block');
 const newsBlockBtn = document.querySelector('.general-info__close-btn');
-
 const greetingDeskBlock = document.querySelector('.general-info__profile-name');
 const greetingMobBlock = document.querySelector('.header__profile-name');
 
-// loaders
+// weather widget
+const humidityInfo = document.querySelector('.general-info__humidity');
+const tempInfo = document.querySelector('.general-info__temp');
+const windInfo = document.querySelector('.general-info__wind-speed');
 
+// loaders
 const weatherLoader = document.querySelector('.weather__loader');
 const weeklyTaskLoader = document.querySelector('.weekly-task__loader');
 const currentTaskLoader = document.querySelector('.current-task__loader');
+
+// menu
+const menuBtn = document.querySelector('.header__profile-image-container');
+const generalInfoBlock = document.querySelector('.general-info');
+
+let scrolledPx = 0;
+const deadlineInput = document.querySelector('.modal-window__deadline-date');
+const body = document.querySelector('body');
+
+const today = new Date();
+let dateToFetch = new Date();
+let monthToFetch = dateToFetch.getMonth();
+let dayOfWeek = dateToFetch.getDay();
+let dateOfToday = dateToFetch.getDate();
+
+currentDateEl.textContent = `${daysOfWeek[dayOfWeek]} ${dateOfToday}`;
+
+// FUNCTIONS
 
 function greetUser() {
   const userInfoString = sessionStorage.getItem('user-creds');
@@ -81,17 +98,6 @@ function greetUser() {
   }
 }
 
-greetUser();
-
-let scrolledPx = 0;
-
-
-window.addEventListener('scroll', function () {
-  modalWindowForm.style.top = scrolledPx;
-  scrolledPx = window.scrollY;
-});
-
-
 function celebrate() {
   function randomInRange(min, max) {
     return Math.random() * (max - min) + min;
@@ -105,6 +111,10 @@ function celebrate() {
   });
 }
 
+function closeNewsBlock() {
+  newsBlock.style.display = 'none';
+  localStorage.setItem('newsBlock', 'hidden');
+}
 
 function checkUserPreferencesAboutNewsBlock() {
   if (localStorage.getItem('newsBlock') === 'hidden') {
@@ -112,46 +122,15 @@ function checkUserPreferencesAboutNewsBlock() {
   }
 }
 
-checkUserPreferencesAboutNewsBlock();
-
-function closeNewsBlock() {
-  newsBlock.style.display = 'none';
-  localStorage.setItem('newsBlock', 'hidden');
+function addActiveClass(e) {
+  allEmojis.forEach((emoji) => {
+    if (emoji === e.target) {
+      e.target.parentNode.classList.add('active');
+    } else {
+      emoji.parentNode.classList.remove('active');
+    }
+  })
 }
-
-try {
-  newsBlockBtn.addEventListener('click', closeNewsBlock);
-} catch (error) {
-  console.error();
-}
-
-const menuBtn = document.querySelector('.header__profile-image-container');
-const generalInfoBlock = document.querySelector('.general-info');
-
-try {
-  menuBtn.addEventListener('click', () => {
-    generalInfoBlock.classList.toggle('active');
-  });
-} catch (error) {
-  console.error();
-}
-
-
-
-
-
-
-
-function closeModalWindow() {
-  modalWindow.style.display = 'none';
-  weeklyTask.style.filter = 'none';
-  currentTask.style.filter = 'none';
-  generalInfo.style.filter = 'none';
-  allInputs.forEach(input => input.value = '');
-}
-
-const deadlineInput = document.querySelector('.modal-window__deadline-date');
-const body = document.querySelector('body');
 
 function openModalWindow() {
   modalWindowForm.style.top = scrolledPx + 100 + 'px';
@@ -163,15 +142,37 @@ function openModalWindow() {
 
   if (localStorage.getItem('list') === 'weeklyTaskList') {
     modalWindowSubtitle.textContent = 'Add new weekly pin';
+    deadlineInput.type = 'date';
+    deadlineInput.readOnly = false;
   } else if (localStorage.getItem('list') === 'todaysTaskList') {
     modalWindowSubtitle.textContent = 'Add new pin for today';
     const today = new Date();
     deadlineInput.type = 'text';
-    deadlineInput.disabled = 'true';
+    deadlineInput.readOnly = true;
     const month = today.getMonth();
     const date = today.getDate();
     const year = today.getFullYear();
     deadlineInput.value = `${months[month]} ${date}, ${year}`;
+  }
+}
+
+function closeModalWindow() {
+  modalWindow.style.display = 'none';
+  weeklyTask.style.filter = 'none';
+  currentTask.style.filter = 'none';
+  generalInfo.style.filter = 'none';
+  body.style.overflow = '';
+  allInputs.forEach(input => input.value = '');
+}
+
+function changeListTitle(dateToCheck) {
+  const today = new Date();
+  const currentDate = new Date(dateToCheck.getFullYear(), dateToCheck.getMonth(), dateToCheck.getDate());
+
+  if (currentDate.toDateString() === today.toDateString()) {
+    currentListTitle.textContent = "Today's schedule";
+  } else if (currentDate < today || currentDate > today) {
+    currentListTitle.textContent = "Your schedule for";
   }
 }
 
@@ -182,6 +183,7 @@ function addPinToList() {
     let inputName = input.getAttribute('name');
     let inputValue = input.value;
     inputsValues[inputName] = inputValue;
+    console.log(inputsValues);
   });
 
   if (localStorage.getItem('list') === 'todaysTaskList') {
@@ -192,8 +194,7 @@ function addPinToList() {
     const date = today.getDate().toString().padStart(2, '0');
     inputsValues['deadlineDate'] = `${year}-${monthNumber + 1}-${date}`;
   }
-
-
+  console.log(inputsValues);
 
   inputsValues['emojiSrc'] = localStorage.getItem('emoji');
 
@@ -309,10 +310,9 @@ function populateWeeklyPinList(data) {
       let parts = deadlineDate.split('-');
       let day = parts[2];
 
-
-      // if (day < 10) {
-      //   day = day.replace(/^0/, '');
-      // }
+      if (day < 10) {
+        day = day.replace(/^0/, '');
+      }
 
       let month = months[+parts[1] - 1];
       let year = parts[0];
@@ -373,11 +373,7 @@ function populateWeeklyPinList(data) {
         weeklyTaskList.insertAdjacentHTML('beforeend', newPin);
         index++;
       }
-
-
     });
-
-
   });
 
   const btnContainer = document.querySelector('.weekly-task__add-widget');
@@ -385,7 +381,7 @@ function populateWeeklyPinList(data) {
   if (index === 0 || index === 1) {
     weeklyTaskList.style.overflowY = 'scroll';
     weeklyTaskList.style.height = '';
-    btnContainer.style.marginTop = 50 + 'px';
+    btnContainer.style.marginTop = 30 + 'px';
   }
 
   if (index > 2) {
@@ -410,27 +406,6 @@ function checkForEvents(eventsArr) {
   }
 }
 
-
-const today = new Date();
-let dateToFetch = new Date();
-let monthToFetch = dateToFetch.getMonth();
-let dayOfWeek = dateToFetch.getDay();
-let dateOfToday = dateToFetch.getDate();
-
-
-function changeListTitle(dateToCheck) {
-  const today = new Date();
-  const currentDate = new Date(dateToCheck.getFullYear(), dateToCheck.getMonth(), dateToCheck.getDate());
-
-  if (currentDate.toDateString() === today.toDateString()) {
-    currentListTitle.textContent = "Today's schedule";
-  } else if (currentDate < today || currentDate > today) {
-    currentListTitle.textContent = "Your schedule for";
-  }
-}
-currentDateEl.textContent = `${daysOfWeek[dayOfWeek]} ${dateOfToday}`;
-changeListTitle(today);
-
 function minusOneDay() {
   dateToFetch.setDate(dateToFetch.getDate() - 1);
   updateDateAndFetchData(dateToFetch);
@@ -454,7 +429,6 @@ function updateDateAndFetchData(dayRequested) {
   currentDateEl.textContent = `${daysOfWeek[dayOfWeek]} ${dateOfToday}`;
   dateToFetch = dayRequested;
 
-
   const dayToCheck = dayRequested.getDate();
   const monthToCheck = dayRequested.getMonth();
   const yearToCheck = dayRequested.getFullYear();
@@ -474,39 +448,10 @@ function updateDateAndFetchData(dayRequested) {
   return dateToFetch;
 }
 
-prevDate.addEventListener('click', () => {
-  dateToFetch = minusOneDay();
-  changeListTitle(new Date(dateToFetch));
-
-  fetchPinsForTheDate(dateToFetch)
-    .then(userDataFromFirebase => {
-      todaysTaskList.innerHTML = '';
-      populateNewPin(userDataFromFirebase);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-});
-
-
-nextDate.addEventListener('click', () => {
-  dateToFetch = plusOneDay();
-  changeListTitle(new Date(dateToFetch));
-
-  fetchPinsForTheDate(dateToFetch)
-    .then(userDataFromFirebase => {
-      todaysTaskList.innerHTML = '';
-      populateNewPin(userDataFromFirebase);
-    })
-    .catch(error => {
-      console.error(error);
-    });
-});
-
 function savePinToDatabase(data) {
   const userCreds = JSON.parse(sessionStorage.getItem('user-creds'));
   const userID = userCreds.uid;
-
+  console.log(data.taskName);
   let parts = data.deadlineDate.split('-');
   let day = parts[2];
   let month = months[+parts[1] - 1];
@@ -519,7 +464,7 @@ function savePinToDatabase(data) {
   });
 }
 
-
+// fetch all pins for the date
 function fetchPinsForTheDate(date) {
   currentTaskLoader.style.display = 'flex';
 
@@ -557,7 +502,6 @@ fetchPinsForTheDate(dateToFetch)
   });
 
 // fetch all pins for the month
-
 function fetchPinsForCurrentMonth(monthToFetch) {
   weeklyTaskLoader.style.display = 'flex';
 
@@ -584,7 +528,6 @@ function fetchPinsForCurrentMonth(monthToFetch) {
       });
   });
 }
-
 
 fetchPinsForCurrentMonth(monthToFetch)
   .then(userNotesForMonth => {
@@ -617,17 +560,6 @@ function fetchNextMonthPins() {
       console.error(error);
     });
 }
-
-
-calendarPrevBtn.addEventListener('click', () => {
-  weeklyTaskList.innerHTML = '';
-  fetchPrevMonthPins();
-})
-
-calendarNextBtn.addEventListener('click', () => {
-  weeklyTaskList.innerHTML = '';
-  fetchNextMonthPins();
-})
 
 // calendar
 
@@ -729,8 +661,6 @@ function updateAllLists() {
     });
 }
 
-
-
 // weather widget
 function getUserGeoPosition() {
   weatherLoader.style.display = 'flex';
@@ -764,14 +694,30 @@ function getWeatherInfo(lat, lon) {
 }
 
 function populateWeatherWidget(data) {
+  console.log(data);
   const weatherDescription = data.weather[0].description;
   const weatherIcon = data.weather[0].icon;
   const weatherIconUrl = `http://openweathermap.org/img/w/${weatherIcon}.png`;
+
+  const windSpeed = data.wind.speed;
+  console.log(windSpeed);
+
+  const humidity = data.main.humidity;
+  console.log(humidity);
+
+  const temperature = data.main.temp;
+  console.log(temperature);
 
   weatherLoader.style.display = 'none';
   weatherInfoBlock.style.display = '';
   weatherIconEl.setAttribute('src', weatherIconUrl);
   weatherDescriptionEl.textContent = weatherDescription;
+
+  //additional 
+  humidityInfo.textContent = `Humidity: ${humidity}%`;
+  tempInfo.textContent = `Temperature: ${Math.round(temperature) - 273}°C`;
+  windInfo.textContent = `Wind Speed: ${windSpeed} km/h`;
+
 
   setInterval(populateTimeBlock, 1000);
 }
@@ -799,11 +745,41 @@ function populateTimeBlock() {
   }
 }
 
+changeListTitle(today);
+greetUser();
+checkUserPreferencesAboutNewsBlock();
 renderCalendar();
-
 populateTimeBlock();
-
 getUserGeoPosition();
+
+// fetch events for calendar dates
+prevDate.addEventListener('click', () => {
+  dateToFetch = minusOneDay();
+  changeListTitle(new Date(dateToFetch));
+
+  fetchPinsForTheDate(dateToFetch)
+    .then(userDataFromFirebase => {
+      todaysTaskList.innerHTML = '';
+      populateNewPin(userDataFromFirebase);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+});
+
+nextDate.addEventListener('click', () => {
+  dateToFetch = plusOneDay();
+  changeListTitle(new Date(dateToFetch));
+
+  fetchPinsForTheDate(dateToFetch)
+    .then(userDataFromFirebase => {
+      todaysTaskList.innerHTML = '';
+      populateNewPin(userDataFromFirebase);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+});
 
 // event listeners - calendar
 try {
@@ -842,8 +818,17 @@ try {
   console.error();
 }
 
-// event listeners - adding pins
+calendarPrevBtn.addEventListener('click', () => {
+  weeklyTaskList.innerHTML = '';
+  fetchPrevMonthPins();
+})
 
+calendarNextBtn.addEventListener('click', () => {
+  weeklyTaskList.innerHTML = '';
+  fetchNextMonthPins();
+})
+
+// event listeners - adding pins
 try {
   addPinForToday.addEventListener('click', () => {
     localStorage.setItem('list', 'todaysTaskList');
@@ -863,7 +848,6 @@ try {
 }
 
 // event listeners - modal window
-
 try {
   closeModalWindowBtn.addEventListener('click', closeModalWindow);
 } catch (error) {
@@ -881,29 +865,9 @@ try {
 }
 
 // event listeners - emojis
-
-function addActiveClass(e) {
-
-  allEmojis.forEach((emoji) => {
-    if (emoji === e.target) {
-      e.target.classList.add('active');
-      console.log(e.target);
-    } else {
-      emoji.classList.remove('active');
-    }
-  })
-}
-
 allEmojis.forEach(emoji => {
   emoji.addEventListener('click', addActiveClass);
 });
-
-
-
-
-
-
-
 
 try {
   emojiWrapper.addEventListener('click', (e) => {
@@ -929,6 +893,34 @@ try {
 } catch (error) {
   console.error();
 }
+
+// event listeners - news block
+try {
+  newsBlockBtn.addEventListener('click', closeNewsBlock);
+} catch (error) {
+  console.error();
+}
+
+// event listeners - mobile menu
+try {
+  menuBtn.addEventListener('click', () => {
+    generalInfoBlock.classList.toggle('active');
+  });
+} catch (error) {
+  console.error();
+}
+
+// event listeners - weather widget
+weatherBtn.addEventListener('click', () => {
+  weatherBtn.classList.toggle('active');
+  weatherAdditionalInfo.classList.toggle('active');
+});
+
+// event listeners - where open modal window
+window.addEventListener('scroll', function () {
+  modalWindowForm.style.top = scrolledPx;
+  scrolledPx = window.scrollY;
+});
 
 
 

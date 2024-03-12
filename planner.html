@@ -46,11 +46,11 @@
 
         <div class="weekly-task__content">
 
-          <a class="weekly-task__logo" href="">
-            <button class="weekly-task__logo-btn">
+          <a class="weekly-task__logo" href="#">
+            <p class="weekly-task__logo-btn">
               <span class="weekly-task__logo-span">
               </span>
-            </button>
+            </p>
             taskly
           </a>
 
@@ -65,7 +65,7 @@
             </button>
           </div>
 
-          <div class="weekly-task__loader loader" id="1">
+          <div class="weekly-task__loader loader">
           </div>
 
           <ul class="weekly-task__list widgets">
@@ -135,7 +135,6 @@
                 Thursday 11
               </span>
 
-
               <div class="current-task__buttons">
                 <button class="current-task__prev-btn">
                   <img class="current-task__btn-img" src="images/arrow-right.png" alt="arrow right">
@@ -144,7 +143,6 @@
                   <img class="current-task__btn-img" src="images/arrow-right.png" alt="arrow right">
                 </button>
               </div>
-
             </div>
 
             <button class="current-task__add-task-btn" type="button">
@@ -153,12 +151,11 @@
             </button>
           </div>
 
-          <div class="current-task__loader loader" id="2">
+          <div class="current-task__loader loader">
           </div>
 
           <ul class="current-task__list">
           </ul>
-
 
         </div>
       </section>
@@ -179,7 +176,6 @@
             </div>
           </div>
 
-
           <div class="general-info__weather-widget">
             <div class="general-info__weather-widget-content">
               <p class="general-info__local-time">
@@ -191,11 +187,20 @@
                 </p>
               </div>
 
-              <div class="weather__loader loader" id="3">
+              <div class="general-info__additional-weather-info">
+                <p class="general-info__humidity">
+                </p>
+                <p class="general-info__temp">
+                </p>
+                <p class="general-info__wind-speed">
+                </p>
               </div>
 
-              <button class="widget-close-btn">
-                <span class="widget-close-span">
+              <div class="weather__loader loader">
+              </div>
+
+              <button class="widget-burger-btn">
+                <span class="widget-burger-span">
                 </span>
               </button>
             </div>
@@ -228,8 +233,6 @@
         </div>
       </section>
 
-
-
       <section class="modal-window" style="display: none">
         <div class="modal-window__wrapper">
 
@@ -259,7 +262,7 @@
               placeholder="Label (Personal, Buisness, etc)">
 
             <label class="modal-window__note-label" for="taskNote"></label>
-            <textarea class="modal-window__input modal-window__note" name="taskNote" id="" cols="30" rows="10"
+            <textarea class="modal-window__input modal-window__note" name="taskNote" cols="30" rows="10"
               placeholder="Notes"></textarea>
 
             <div class="modal-window__emoji-choice">
