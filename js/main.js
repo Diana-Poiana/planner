@@ -1,4 +1,5 @@
 import { db, set, get, ref, dbref, child } from './firebaseConfig.js';
+import { weatherApiKey, weatherApiAdress } from './openWeatherApi.js';
 
 // calendar
 const currentDate = document.querySelector('.calendar__current-month');
@@ -25,8 +26,6 @@ const addPinForToday = document.querySelector('.current-task__add-task-btn');
 const todaysTaskList = document.querySelector('.current-task__list');
 
 // weather widget
-const weatherApiKey = '747d5a826a76fbbd512ae861950e695f';
-const weatherApiAdress = 'https://api.openweathermap.org/data/2.5/weather?';
 const timeValueEl = document.querySelector('.general-info__local-time');
 const weatherInfoBlock = document.querySelector('.general-info__weather-info');
 const weatherIconEl = document.querySelector('.general-info__weather-icon');
@@ -263,10 +262,7 @@ function populateNewPin(data) {
 
       todaysTaskList.insertAdjacentHTML('beforeend', newPin);
 
-      // Select the newly created pin
       const newPinElement = todaysTaskList.lastElementChild;
-
-      // Attach event listener to the new pin
       newPinElement.addEventListener('click', (e) => {
         if (e.target.classList.contains('checked')) {
           e.target.classList.remove('checked');
@@ -275,9 +271,6 @@ function populateNewPin(data) {
           celebrate();
         }
       });
-
-
-
     })
 
   }
