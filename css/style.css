@@ -1334,6 +1334,21 @@ border-width: 0;
   transform: rotate(90deg);
 }
 
+.general-info__close-btn:focus {
+  outline-color: var(--dark-grey);
+}
+
+.general-info__close-btn:hover .general-info__close-span,
+.general-info__close-btn:hover .general-info__close-span::after {
+  background-color: var(--accent-second-color);
+  
+}
+
+.modal-window__widget-close-btn:active {
+  transform: translateX(3px);
+  outline-color: var(--accent-second-color);
+}
+
 .general-info__news-image-wrapper {
   display: flex;
   align-items: flex-end;
