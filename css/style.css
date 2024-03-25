@@ -233,9 +233,26 @@ border-width: 0;
 }
 
 /* authorization form */
+.form__sign-up.active {
+  display: block;
+}
+
 .form__sign-up {
+  display: none;
+}
+
+.form__sign-up,
+.form__sign-in  {
   max-width: 460px;
   width: 100%;
+}
+
+.form__sign-in.active {
+  display: block;
+}
+
+.form__sign-in {
+  display: none;
 }
 
 .form__label {
@@ -282,10 +299,14 @@ border-width: 0;
   margin-left: auto;
 }
 
-.form__hide-png,
-.form__show-png {
+.form__hide-png {
+  width: 26px;
   padding-right: 3px;
 }
+
+.form__show-png {
+  width: 23px;
+} 
 
 .form__top {
   display: flex;
@@ -320,6 +341,7 @@ border-width: 0;
   font-weight: 600;
   border: 2px solid var(--accent-second-color);
   transition: all 0.5s;
+  margin-bottom: 20px;
 }
 
 .form__button:focus {
@@ -344,6 +366,34 @@ border-width: 0;
   transform: translateY(0);
 }
 
+.form__linkto-signin {
+  text-align: center;
+}
+
+.form__autho-link {
+  display: block;
+  padding: 5px 10px;
+  font-weight: 700;
+  color: var(--accent-second-color);
+  border-radius: 10px;
+  width: 200px;
+  margin: 10px auto 0;
+  transition: all 0.5s;
+  outline: 2px solid rgba(244, 185, 96, 0);
+}
+
+.form__autho-link:focus {
+  outline: 2px solid var(--accent-second-color);
+}
+
+.form__autho-link:hover {
+  color: rgba(244, 185, 96, 0.7);
+}
+
+.form__autho-link:active {
+  outline: 2px solid var(--accent-second-color);
+  box-shadow: 5px 5px 5px rgba(244, 185, 96, 0.5);
+}
 
 /* header */
 .header {
@@ -944,7 +994,7 @@ border-width: 0;
   width: 40px;
   height: 40px;
   top: -22%;
-  left: 3%;
+  left: 0;
   background: var(--accent-color);
 }
 
@@ -963,7 +1013,8 @@ border-width: 0;
   background: var(--accent-color);
   border-radius: 50%;
   bottom: -4px;
-  left: 19px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* section 2 */

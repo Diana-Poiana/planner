@@ -46,8 +46,8 @@
               Today is a brand new day. And it's yours.
             </p>
           </div>
-
-          <form class="form form__sign-up" action="#">
+          <!-- sign up -->
+          <form class="form form__sign-up active" action="#">
 
             <div class="form__block form__email-block">
               <label class="form__label" for="email">Email</label>
@@ -85,13 +85,59 @@
               </ul>
             </div>
 
-            <button class="form__button" type="submit">
+            <button class="form__button form__signup" type="submit">
               <p class="form__button-text">
                 Sign Up
               </p>
               <div class="form-loader loader">
               </div>
             </button>
+
+            <div class="form__linkto-signin">
+              OR
+              <a class="form__autho-link" href="#">
+                I already have an account
+              </a>
+            </div>
+          </form>
+          <!-- sign in -->
+          <form class="form form__sign-in" action="#">
+
+            <div class="form__block form__email-block">
+              <label class="form__label" for="email">Email</label>
+              <input class="form__input form__email" id="email" name="email" type="email" placeholder="" required>
+            </div>
+
+            <div class="form__block">
+              <div class="form__top">
+                <label class="form__label" for="password">Password</label>
+                <button class="form__hide-button" type="button">
+                  <img class="form__hide-png" src="images/hide.png" alt="hide password">
+                  <img class="form__show-png" src="images/show.png" style="display: none" alt="show password">
+                  <p class="form__btn-txt">
+                    Hide
+                  </p>
+                </button>
+              </div>
+
+              <input class="form__input form__password" id="password" name="password" placeholder="" type="password"
+                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[\W_]).{8,}$" required>
+
+            </div>
+
+            <button class="form__button form__signin" type="submit">
+              <p class="form__button-text">
+                Sign In
+              </p>
+              <div class="form-loader loader">
+              </div>
+            </button>
+            <div class="form__linkto-signin">
+              OR
+              <a class="form__autho-link" href="#">
+                Create new account
+              </a>
+            </div>
 
           </form>
         </div>

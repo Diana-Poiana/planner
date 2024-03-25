@@ -7,11 +7,32 @@ const emailInput = document.querySelector('.form__email');
 const passwordInput = document.querySelector('.form__password');
 const formBtn = document.querySelector('.form__button');
 const formBtnText = document.querySelector('.form__button-text');
+
+//toggle forms
+const signUpForm = document.querySelector('.form__sign-up');
+const signInForm = document.querySelector('.form__sign-in');
+const authoLinks = document.querySelectorAll('.form__autho-link');
 // password visability for user
 const passwordVisabilityBtn = document.querySelector('.form__hide-button');
 const passwordVisabilityBtnTextInner = document.querySelector('.form__btn-txt');
 const showPng = document.querySelector('.form__show-png');
 const hidePng = document.querySelector('.form__hide-png');
+
+
+function toggleSignUpAndInPage() {
+  if (signUpForm.classList.contains('active')) {
+    signUpForm.classList.remove('active');
+    signInForm.classList.add('active');
+  } else if (signInForm.classList.contains('active')) {
+    signInForm.classList.remove('active');
+    signUpForm.classList.add('active');
+  }
+}
+
+authoLinks.forEach((link) => {
+  link.addEventListener('click', toggleSignUpAndInPage);
+});
+
 
 
 // buttons loader

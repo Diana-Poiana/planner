@@ -24,6 +24,7 @@ const weeklyTaskList = document.querySelector('.weekly-task__list');
 // add new todays pin
 const addPinForToday = document.querySelector('.current-task__add-task-btn');
 const todaysTaskList = document.querySelector('.current-task__list');
+const deadlineTime = document.querySelector('.modal-window__input modal-window__deadline-time');
 
 // weather widget
 const timeValueEl = document.querySelector('.general-info__local-time');
@@ -84,6 +85,10 @@ currentDateEl.textContent = `${daysOfWeek[dayOfWeek]} ${dateOfToday}`;
 
 // FUNCTIONS
 
+// different functions
+
+
+
 function greetUser() {
   const userInfoString = sessionStorage.getItem('user-creds');
   const userInfo = JSON.parse(userInfoString);
@@ -131,6 +136,8 @@ function addActiveClass(e) {
   })
 }
 
+// modal window open/close
+
 function openModalWindow() {
   modalWindowForm.style.top = scrolledPx + 100 + 'px';
   modalWindow.style.display = '';
@@ -164,6 +171,8 @@ function closeModalWindow() {
   allInputs.forEach(input => input.value = '');
 }
 
+// change title of the list
+
 function changeListTitle(dateToCheck) {
   const today = new Date();
   const currentDate = new Date(dateToCheck.getFullYear(), dateToCheck.getMonth(), dateToCheck.getDate());
@@ -174,6 +183,14 @@ function changeListTitle(dateToCheck) {
     currentListTitle.textContent = "Your schedule for";
   }
 }
+
+
+
+
+
+// deadlineTime
+
+// add / populate pins
 
 function addPinToList() {
   const inputsValues = {};
@@ -210,9 +227,10 @@ function addPinToList() {
 }
 
 function populateNewPin(data) {
+  let newPin = '';
 
   if (data.length === 0) {
-    let newPin = `
+    newPin = `
       <li li class="current-task__no-item" >
         No tasks for this date
       </li >
@@ -220,7 +238,6 @@ function populateNewPin(data) {
 
     todaysTaskList.insertAdjacentHTML('beforeend', newPin);
   } else {
-
     data.forEach((note) => {
       const deadlineTime = note.noteContent.deadlineTime;
       const taskName = note.noteContent.taskName;
@@ -228,7 +245,7 @@ function populateNewPin(data) {
       const taskLabel = note.noteContent.taskLabel;
       const emojiSrc = note.noteContent.emojiSrc;
 
-      let newPin = `
+      newPin = `
       <li li class="current-task__item" >
         <div class="current-task__img-container">
           <img class="current-task__task-img" src="${emojiSrc}" alt="emoji">
@@ -271,8 +288,8 @@ function populateNewPin(data) {
           celebrate();
         }
       });
-    })
 
+    });
   }
 }
 
@@ -749,6 +766,7 @@ getUserGeoPosition();
 prevDate.addEventListener('click', () => {
   dateToFetch = minusOneDay();
   changeListTitle(new Date(dateToFetch));
+  todaysTaskList.innerHTML = '';
 
   fetchPinsForTheDate(dateToFetch)
     .then(userDataFromFirebase => {
@@ -763,10 +781,11 @@ prevDate.addEventListener('click', () => {
 nextDate.addEventListener('click', () => {
   dateToFetch = plusOneDay();
   changeListTitle(new Date(dateToFetch));
+  todaysTaskList.innerHTML = '';
 
   fetchPinsForTheDate(dateToFetch)
     .then(userDataFromFirebase => {
-      todaysTaskList.innerHTML = '';
+
       populateNewPin(userDataFromFirebase);
     })
     .catch(error => {
