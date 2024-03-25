@@ -366,7 +366,9 @@ border-width: 0;
   transform: translateY(0);
 }
 
-.form__linkto-signin {
+.form__form-toggle {
+  max-width: 460px;
+  width: 100%;
   text-align: center;
 }
 

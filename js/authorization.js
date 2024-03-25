@@ -1,17 +1,21 @@
-import { db, ref, set, auth, createUserWithEmailAndPassword, sendEmailVerification } from './firebaseConfig.js';
+import { db, ref, dbref, set, get, auth, child, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendEmailVerification } from './firebaseConfig.js';
 
-const formLoader = document.querySelector('.form-loader');
+const formLoader = document.querySelectorAll('.form-loader');
 // form
-const form = document.querySelector('.form__sign-up');
 const emailInput = document.querySelector('.form__email');
 const passwordInput = document.querySelector('.form__password');
-const formBtn = document.querySelector('.form__button');
-const formBtnText = document.querySelector('.form__button-text');
+
+const emailInput1 = document.querySelector('.form__email1');
+const passwordInput1 = document.querySelector('.form__password1');
+
+const signInBtn = document.querySelector('.form__signin');
+const signUpBtn = document.querySelector('.form__signup');
+const formBtnText = document.querySelectorAll('.form__button-text');
 
 //toggle forms
 const signUpForm = document.querySelector('.form__sign-up');
 const signInForm = document.querySelector('.form__sign-in');
-const authoLinks = document.querySelectorAll('.form__autho-link');
+const authoLink = document.querySelector('.form__autho-link');
 // password visability for user
 const passwordVisabilityBtn = document.querySelector('.form__hide-button');
 const passwordVisabilityBtnTextInner = document.querySelector('.form__btn-txt');
@@ -23,29 +27,42 @@ function toggleSignUpAndInPage() {
   if (signUpForm.classList.contains('active')) {
     signUpForm.classList.remove('active');
     signInForm.classList.add('active');
+    authoLink.textContent = 'Create Account';
   } else if (signInForm.classList.contains('active')) {
     signInForm.classList.remove('active');
     signUpForm.classList.add('active');
+    authoLink.textContent = 'Already have an account';
   }
 }
 
-authoLinks.forEach((link) => {
-  link.addEventListener('click', toggleSignUpAndInPage);
-});
+authoLink.addEventListener('click', toggleSignUpAndInPage);
 
 
 
 // buttons loader
 function showLoader() {
-  formBtnText.textContent = '';
-  formLoader.style.display = 'flex';
-  formBtn.setAttribute('disabled', true);
+  formBtnText.forEach((btn) => {
+    btn.textContent = '';
+  });
+
+  formLoader.forEach((loader) => {
+    loader.style.display = 'flex';
+  });
+
+  signInBtn.setAttribute('disabled', true);
+  signUpBtn.setAttribute('disabled', true);
 }
 
 function hideLoader() {
-  formBtnText.textContent = 'Try again later';
-  formLoader.style.display = 'none';
-  formBtn.setAttribute('disabled', false);
+  formBtnText.forEach((btn) => {
+    btn.textContent = 'Try again later';
+  });
+
+  formLoader.forEach((loader) => {
+    loader.style.display = 'none';
+  });
+  signInBtn.setAttribute('disabled', false);
+  signUpBtn.setAttribute('disabled', false);
 }
 
 // toggle password visabillity
@@ -89,7 +106,30 @@ function registerUser(e) {
     });
 }
 
+// user login
+function logInUser(e) {
+  e.preventDefault();
+  showLoader();
+
+  signInWithEmailAndPassword(auth, emailInput1.value, passwordInput1.value)
+    .then((credentials) => {
+      get(child(dbref, 'UsersAuthList/' + credentials.user.uid))
+        .then((snapshot) => {
+          if (snapshot.exists) {
+
+            sessionStorage.setItem('user-creds', JSON.stringify(credentials.user));
+            window.location.href = 'planner.html';
+          }
+        });
+    })
+    .catch((error) => {
+      alert(error.message);
+      window.location.href = 'index.html';
+    });
+}
+
 // event listeners
 passwordVisabilityBtn.addEventListener('click', togglePasswordVisability);
 
-form.addEventListener('submit', registerUser);
+signUpForm.addEventListener('submit', registerUser);
+signInForm.addEventListener('submit', logInUser);
