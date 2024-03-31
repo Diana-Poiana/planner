@@ -24,7 +24,7 @@ const weeklyTaskList = document.querySelector('.weekly-task__list');
 // add new todays pin
 const addPinForToday = document.querySelector('.current-task__add-task-btn');
 const todaysTaskList = document.querySelector('.current-task__list');
-const deadlineTime = document.querySelector('.modal-window__input modal-window__deadline-time');
+const deadlineTimeEl = document.querySelector('.modal-window__deadline-time');
 
 // weather widget
 const timeValueEl = document.querySelector('.general-info__local-time');
@@ -87,7 +87,43 @@ currentDateEl.textContent = `${daysOfWeek[dayOfWeek]} ${dateOfToday}`;
 
 // different functions
 
+// mask for input starts
 
+function createMask() {
+  let matrix = '__:__';
+  let i = 0;
+  let val = this.value.replace(/\D/g, '');
+
+  this.value = matrix.replace(
+    /./g,
+    (a) => {
+      if (i === 0 && (val.length > 0 && parseInt(val.charAt(0)) > 2)) {
+        i++;
+        return '';
+      }
+
+      if (i === 1 && (val.length > 0 && parseInt(val.charAt(0)) >= 2) && parseInt(val.charAt(1)) > 4) {
+        return '';
+      }
+
+      if (i === 2 && (val.length > 0 && parseInt(val.charAt(2)) > 5)) {
+        return '';
+      }
+
+      if (/[_\d]/.test(a) && i < val.length) {
+        return val.charAt(i++);
+      } else if (i >= val.length) {
+        return '';
+      } else {
+        return a;
+      }
+    }
+  );
+}
+
+deadlineTimeEl.addEventListener('input', createMask);
+
+//mask for input ends
 
 function greetUser() {
   const userInfoString = sessionStorage.getItem('user-creds');
