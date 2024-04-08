@@ -321,12 +321,19 @@ border-width: 0;
   margin-left: auto;
 }
 
-.form__hide-png {
+.form__hide-button1 {
+color: var(--font-color);
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.form__hide-png, .form__hide-png1 {
   width: 26px;
   padding-right: 3px;
 }
 
-.form__show-png {
+.form__show-png, .form__show-png1 {
   width: 23px;
 } 
 

@@ -11,6 +11,7 @@ const passwordInput1 = document.querySelector('.form__password1');
 const signInBtn = document.querySelector('.form__signin');
 const signUpBtn = document.querySelector('.form__signup');
 const formBtnText = document.querySelectorAll('.form__button-text');
+const formBtnText1 = document.querySelectorAll('.form__button-text');
 
 //toggle forms
 const signUpForm = document.querySelector('.form__sign-up');
@@ -18,9 +19,13 @@ const signInForm = document.querySelector('.form__sign-in');
 const authoLink = document.querySelector('.form__autho-link');
 // password visability for user
 const passwordVisabilityBtn = document.querySelector('.form__hide-button');
+const passwordVisabilityBtn1 = document.querySelector('.form__hide-button1');
 const passwordVisabilityBtnTextInner = document.querySelector('.form__btn-txt');
+const passwordVisabilityBtnTextInner1 = document.querySelector('.form__btn-txt1');
 const showPng = document.querySelector('.form__show-png');
+const showPng1 = document.querySelector('.form__show-png1');
 const hidePng = document.querySelector('.form__hide-png');
+const hidePng1 = document.querySelector('.form__hide-png1');
 
 
 function toggleSignUpAndInPage() {
@@ -34,6 +39,7 @@ function toggleSignUpAndInPage() {
     authoLink.textContent = 'Already have an account';
   }
 }
+
 
 authoLink.addEventListener('click', toggleSignUpAndInPage);
 
@@ -77,6 +83,20 @@ function togglePasswordVisability() {
     passwordVisabilityBtnTextInner.textContent = 'Hide';
     hidePng.style.display = 'block';
     showPng.style.display = 'none';
+  }
+}
+
+function togglePasswordVisability1() {
+  if (passwordInput1.getAttribute('type') == 'password') {
+    passwordInput1.setAttribute('type', 'text');
+    passwordVisabilityBtnTextInner1.textContent = 'Show';
+    hidePng1.style.display = 'none';
+    showPng1.style.display = 'block';
+  } else if (passwordInput1.getAttribute('type') == 'text') {
+    passwordInput1.setAttribute('type', 'password');
+    passwordVisabilityBtnTextInner1.textContent = 'Hide';
+    hidePng1.style.display = 'block';
+    showPng1.style.display = 'none';
   }
 }
 
@@ -130,6 +150,7 @@ function logInUser(e) {
 
 // event listeners
 passwordVisabilityBtn.addEventListener('click', togglePasswordVisability);
+passwordVisabilityBtn1.addEventListener('click', togglePasswordVisability1);
 
 signUpForm.addEventListener('submit', registerUser);
 signInForm.addEventListener('submit', logInUser);
