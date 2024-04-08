@@ -85,10 +85,7 @@ currentDateEl.textContent = `${daysOfWeek[dayOfWeek]} ${dateOfToday}`;
 
 // FUNCTIONS
 
-// different functions
-
 // mask for input starts
-
 function createMask() {
   let matrix = '__:__';
   let i = 0;
@@ -122,7 +119,6 @@ function createMask() {
 }
 
 deadlineTimeEl.addEventListener('input', createMask);
-
 //mask for input ends
 
 function greetUser() {
@@ -173,7 +169,6 @@ function addActiveClass(e) {
 }
 
 // modal window open/close
-
 function openModalWindow() {
   modalWindowForm.style.top = scrolledPx + 100 + 'px';
   modalWindow.style.display = '';
@@ -207,8 +202,17 @@ function closeModalWindow() {
   allInputs.forEach(input => input.value = '');
 }
 
-// change title of the list
+function closeEmptyModalWindow(e) {
+  e.preventDefault();
+  modalWindow.style.display = 'none';
+  weeklyTask.style.filter = 'none';
+  currentTask.style.filter = 'none';
+  generalInfo.style.filter = 'none';
+  body.style.overflow = '';
+  allInputs.forEach(input => input.value = '');
+}
 
+// change title of the list
 function changeListTitle(dateToCheck) {
   const today = new Date();
   const currentDate = new Date(dateToCheck.getFullYear(), dateToCheck.getMonth(), dateToCheck.getDate());
@@ -220,14 +224,7 @@ function changeListTitle(dateToCheck) {
   }
 }
 
-
-
-
-
-// deadlineTime
-
 // add / populate pins
-
 function addPinToList() {
   const inputsValues = {};
 
@@ -282,7 +279,7 @@ function populateNewPin(data) {
       const emojiSrc = note.noteContent.emojiSrc;
 
       newPin = `
-      <li li class="current-task__item" >
+      <li class="current-task__item">
         <div class="current-task__img-container">
           <img class="current-task__task-img" src="${emojiSrc}" alt="emoji">
         </div>
@@ -316,15 +313,31 @@ function populateNewPin(data) {
       todaysTaskList.insertAdjacentHTML('beforeend', newPin);
 
       const newPinElement = todaysTaskList.lastElementChild;
+
       newPinElement.addEventListener('click', (e) => {
+        const subtitle = e.target.querySelector('.current-task__task-subtitle');
         if (e.target.classList.contains('checked')) {
           e.target.classList.remove('checked');
+          localStorage.removeItem(subtitle.innerText);
         } else {
           e.target.classList.add('checked');
+
+          console.log(subtitle.innerText);
+          localStorage.setItem(subtitle.innerText, 'checked');
           celebrate();
         }
       });
+    });
 
+    const allListItems = todaysTaskList.querySelectorAll('li');
+    allListItems.forEach(item => {
+      const itemSubtitle = item.querySelector('.current-task__task-subtitle').innerText;
+
+      if (localStorage.getItem(itemSubtitle) === 'checked') {
+        item.classList.add('checked');
+      } else {
+        item.classList.remove('checked');
+      }
     });
   }
 }
@@ -335,7 +348,7 @@ function populateWeeklyPinList(data) {
 
   if (data.length === 0) {
     let newPin = `
-      <li li class="weekly-task__no-item" >
+      <li class="weekly-task__no-item" >
         No tasks for this month
       </li >
       `;
@@ -356,9 +369,9 @@ function populateWeeklyPinList(data) {
       let parts = deadlineDate.split('-');
       let day = parts[2];
 
-      if (day < 10) {
-        day = day.replace(/^0/, '');
-      }
+      // if (day < 10) {
+      //   day = day.replace(/^0/, '');
+      // }
 
       let month = months[+parts[1] - 1];
       let year = parts[0];
@@ -370,11 +383,13 @@ function populateWeeklyPinList(data) {
       const todaysMonth = months[todaysMonthNumber];
       const todaysDate = today.getDate().toString().padStart(2, '0');
 
+      // console.log(`${day} ${month} ${year} and ${todaysDate} ${todaysMonth} ${todaysYear}`);
+
       if (`${day} ${month} ${year}` === `${todaysDate} ${todaysMonth} ${todaysYear}`) {
         return;
       } else {
         let newPin = `
-        <li li class= "widgets__item" >
+        <li class="widgets__item">
       <div class="widgets__img-container">
         <img class="widgets__task-img" src="${emojiSrc}" alt="emoji">
       </div>
@@ -418,6 +433,32 @@ function populateWeeklyPinList(data) {
 
         weeklyTaskList.insertAdjacentHTML('beforeend', newPin);
         index++;
+
+        const newPinElement = weeklyTaskList.lastElementChild;
+
+        newPinElement.addEventListener('click', (e) => {
+          const subtitle = e.target.querySelector('.widgets__task-subtitle');
+          if (e.target.classList.contains('checked')) {
+            e.target.classList.remove('checked');
+            localStorage.removeItem(subtitle.innerText);
+          } else {
+            e.target.classList.add('checked');
+
+            console.log(subtitle.innerText);
+            localStorage.setItem(subtitle.innerText, 'checked');
+          }
+        });
+
+        const allListItems = weeklyTaskList.querySelectorAll('li');
+        allListItems.forEach(item => {
+          const itemSubtitle = item.querySelector('.widgets__task-subtitle').innerText;
+
+          if (localStorage.getItem(itemSubtitle) === 'checked') {
+            item.classList.add('checked');
+          } else {
+            item.classList.remove('checked');
+          }
+        });
       }
     });
   });
@@ -608,7 +649,6 @@ function fetchNextMonthPins() {
 }
 
 // calendar
-
 function renderCalendar() {
   let firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
   let lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -897,7 +937,7 @@ try {
 
 // event listeners - modal window
 try {
-  closeModalWindowBtn.addEventListener('click', closeModalWindow);
+  closeModalWindowBtn.addEventListener('click', closeEmptyModalWindow);
 } catch (error) {
   console.error();
 }

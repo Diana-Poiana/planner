@@ -3,11 +3,33 @@
   --font-color: #2c2543;
   --font-second-color: #667180;
   --accent-color: #f8d57e;
-  --accent-second-color: #f4b860;
+  --accent-second-color: rgb(244, 184, 96);
   --dark-grey: #ECEFF2;
   --white: #ffffff;
   --black: #000000;
 }
+
+  .widgets {
+    scrollbar-width: auto;
+    scrollbar-color: #f4b860 #ffffff;
+  }
+
+   .widgets::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .widgets::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  .widgets::-webkit-scrollbar-thumb {
+    background-color: #f4b860;
+    border-radius: 10px;
+  }
+
+   .widgets:hover {
+    overflow-y: scroll;
+   }
 
 body {
   color: var(--font-color);
@@ -517,6 +539,20 @@ border-width: 0;
   background-color: var(--white);
   border-radius: 20px;
   margin-bottom: 20px;
+  transition: all 0.5s;
+}
+
+.widgets__item.checked {
+  background-color: var(--accent-color);
+}
+
+.widgets__item.checked  .widgets__task-label {
+  color: var(--accent-second-color);
+  background-color: var(--white);
+}
+
+.widgets__item.checked .widgets__img-container {
+  background-color: var(--white);
 }
 
 .widgets__img-container {
@@ -529,6 +565,7 @@ border-width: 0;
   background-color: var(--accent-color);
   border-radius: 12px;
   margin-right: 30px;
+  transition: all 0.5s;
 }
 
 .widgets__task-img {
@@ -561,6 +598,7 @@ border-width: 0;
   color: var(--white);
   background-color: var(--accent-second-color);
   border-radius: 10px;
+  transition: all 0.5s;
 }
 
 /* add widget btn */
@@ -943,6 +981,7 @@ border-width: 0;
 }
 
 .calendar__days {
+  cursor: pointer;
   color: rgba(102, 113, 128, 0.4);
   font-weight: 500;
   transition: all 0.5s;
